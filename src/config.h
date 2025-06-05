@@ -20,10 +20,9 @@ SX1262 radio = new Module(LORA_CS, LORA_DIO1, LORA_RST, LORA_BUSY);
 // Intervalo de envío (considera restricciones legales y FUP)
 const uint32_t uplinkIntervalSeconds = 5UL * 60UL;    // 5 minutos
 
-
 // Configuración regional - COLOMBIA usa US915
-const LoRaWANBand_t Region = US915;  // Para Colombia (América)
-const uint8_t subBand = 2;           // Subband 2 para US915
+const LoRaWANBand_t Region = AU915;  // Para Colombia (América)
+const uint8_t subBand = 1;           // Subband 2 para US915
 
 // ============================================================================
 // Código de soporte - solo cambiar si las notas lo indican

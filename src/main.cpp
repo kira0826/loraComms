@@ -32,16 +32,36 @@ void setup() {
   delay(5000);  // Give time to switch to the serial monitor
   Serial.println(F("\nSetup ... "));
 
+
+  Serial.println(F("\n=== DEBUG LORAWAN CONFIG ==="));
+  Serial.print(F("JoinEUI: 0x"));
+  Serial.println(joinEUI, HEX);
+  Serial.print(F("DevEUI:  0x"));
+  Serial.println(devEUI, HEX);
+  Serial.print(F("AppKey:  "));
+  for(int i = 0; i < 16; i++) {
+    if(appKey[i] < 0x10) Serial.print("0");
+    Serial.print(appKey[i], HEX);
+  }
+  Serial.print(F("\nNwkKey:  "));
+   for(int i = 0; i < 16; i++) {
+    if(appKey[i] < 0x10) Serial.print("0");
+    Serial.print(nwkKey[i], HEX);
+  }
+  Serial.println();
+  Serial.println(F("===============================\n"));
+
   Serial.println(F("Initialise the radio"));
   int16_t state = radio.begin();
   debug(state != RADIOLIB_ERR_NONE, F("Initialise radio failed"), state, true);
 
   // Setup the OTAA session information
   node.beginOTAA(joinEUI, devEUI, nwkKey, appKey);
-  // No need to check state here, as beginOTAA returns void
-
+  
   Serial.println(F("Join ('login') the LoRaWAN Network"));
   state = node.activateOTAA();
+
+  Serial.print(state);
   
   debug(state != RADIOLIB_LORAWAN_NEW_SESSION, F("Join failed"), state, true);
 
